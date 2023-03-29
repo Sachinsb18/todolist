@@ -9,6 +9,7 @@ library.add(faTrash);
 
 
 
+
 export class App extends Component {
   constructor(props) {
     super(props)
@@ -18,11 +19,13 @@ export class App extends Component {
        currentItem:{
         text:'',
         key:''
-       }
+       } 
     }
     this.handleInput = this.handleInput.bind(this);
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.setUpdate = this.setUpdate.bind(this);
+
 
   }
   handleInput(e){
@@ -55,6 +58,18 @@ export class App extends Component {
     })
 
   }
+  setUpdate(text,key){
+    const items= this.state.items;
+    items.map(item => {
+      if(item.key===key){
+        item.text=text;
+      }
+    })
+    this.setState({
+      items:items,
+    })
+  }
+  
   render() {
     return (
       <div className='App'>
@@ -66,9 +81,10 @@ export class App extends Component {
             />
             <button type='submit'>Add</button>
           </form>
-        </header>
+        </header>      
         <ListItem items={this.state.items}
         deleteItem={this.deleteItem}
+        setUpdate={this.setUpdate}
         ></ListItem>
       </div>
      
